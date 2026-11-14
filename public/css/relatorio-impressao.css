@@ -1,0 +1,363 @@
+/*
+ * Relatórios (estoque, movimentações e desempenho): tela de escolha, visualização e impressão / PDF.
+ * No papel não existe barra de rolagem, então na impressão cada tabela se ajusta à largura
+ * da folha escolhida (A4, Carta, retrato ou paisagem): as colunas quebram o texto em linhas,
+ * a fonte diminui conforme o número de colunas e o cabeçalho da tabela se repete em cada página.
+ */
+
+/* =====================================================================
+   Tela de escolha (Emissão de relatórios)
+   ===================================================================== */
+.rm-modulo .rm-relatorios-form { margin-top: 18px; }
+
+.rm-modulo .rm-relatorios-passo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--navy-dark);
+}
+
+.rm-modulo .rm-relatorios-passo span {
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    font-size: 13px;
+}
+
+/* conteúdo do card sempre no topo (botão centraliza por padrão) */
+.rm-modulo .pick[data-report] { position: relative; display: flex; flex-direction: column; justify-content: flex-start; transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
+.rm-modulo .pick:hover { transform: translateY(-2px); }
+.rm-modulo .pick.selected { box-shadow: 0 0 0 3px rgba(31, 122, 63, .18); }
+.rm-modulo .pick.selected::after {
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    font-size: 12px;
+}
+
+/* Botões de saída: o formato é escolhido aqui (PDF ou CSV) */
+.rm-modulo .rm-relatorios-saidas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+}
+
+.rm-modulo .rm-relatorios-saida {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--text);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+
+.rm-modulo .rm-relatorios-saida:hover { border-color: var(--green); box-shadow: 0 8px 20px rgba(11, 46, 92, .10); transform: translateY(-2px); }
+.rm-modulo .rm-relatorios-saida:focus-visible { outline: 3px solid rgba(31, 122, 63, .35); outline-offset: 2px; }
+.rm-modulo .rm-relatorios-saida strong { display: block; font-size: 15px; color: var(--navy-dark); }
+.rm-modulo .rm-relatorios-saida small { display: block; margin-top: 2px; font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+.rm-modulo .rm-relatorios-saida-icone {
+    flex: 0 0 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    font-size: 22px;
+}
+
+.rm-modulo .rm-relatorios-saida-icone.pdf { background: #fdeaea; color: #b42318; }
+.rm-modulo .rm-relatorios-saida-icone.csv { background: var(--green-soft); color: var(--green); }
+
+/* =====================================================================
+   Relatório na tela
+   ===================================================================== */
+.rm-tema-slide .rm-modulo .rm-relatorio .rm-relatorio-marca { display: none; }
+.rm-modulo .rm-relatorio .report-head .sub { margin-bottom: 10px; }
+
+.rm-tema-slide .rm-modulo .rm-relatorio .rm-relatorio-parametros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 8px;
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.rm-tema-slide .rm-modulo .rm-relatorio .rm-relatorio-parametros div {
+    display: flex;
+    gap: 4px;
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+}
+
+.rm-tema-slide .rm-modulo .rm-relatorio .rm-relatorio-parametros dt { font-weight: 700; color: var(--text); }
+
+.rm-modulo .rm-relatorio .report-head > div:first-child { flex: 1 1 auto; min-width: 0; }
+.rm-modulo .rm-relatorio-acoes { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; flex: 0 1 360px; }
+
+/* Indicadores do topo */
+.rm-modulo .rm-relatorio-resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.rm-modulo .rm-relatorio-indicador {
+    --tom: var(--navy);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-left: 5px solid var(--tom);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(11, 46, 92, .05);
+}
+
+.rm-modulo .rm-relatorio-indicador.is-ok { --tom: var(--green); }
+.rm-modulo .rm-relatorio-indicador.is-alerta { --tom: #d97706; }
+
+.rm-modulo .rm-relatorio-indicador-rotulo { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.rm-modulo .rm-relatorio-indicador strong { font-size: 26px; line-height: 1.15; color: var(--navy-dark); overflow-wrap: anywhere; }
+.rm-modulo .rm-relatorio-indicador-detalhe { font-size: 12.5px; color: var(--muted); }
+
+/* Seções (uma tabela por assunto) */
+.rm-modulo .rm-relatorio-secao { margin-bottom: 16px; }
+
+.rm-modulo .rm-relatorio-secao-topo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.rm-modulo .rm-relatorio-secao-topo h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--navy-dark);
+}
+
+.rm-modulo .rm-relatorio-secao-topo h2 i { color: var(--green); }
+
+.rm-modulo .rm-relatorio-contagem {
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--green-soft);
+    color: var(--green-dark);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.rm-modulo .rm-relatorio-secao-descricao { margin: 4px 0 12px; font-size: 13px; color: var(--muted); }
+
+/* cabeçalhos longos quebram em linhas em vez de criar rolagem lateral */
+.rm-modulo .rm-relatorio table th { white-space: normal; vertical-align: bottom; line-height: 1.3; }
+
+.rm-modulo .rm-relatorio table th.num,
+.rm-modulo .rm-relatorio table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.rm-modulo .rm-relatorio table tbody tr:nth-child(even) td { background: #f8fafc; }
+.rm-modulo .rm-relatorio table td.rm-negativo { color: #b42318; font-weight: 700; }
+
+.rm-modulo .rm-relatorio table tfoot td {
+    padding: 10px;
+    border-top: 2px solid var(--navy-dark);
+    background: #eef3f9;
+    font-weight: 800;
+    color: var(--navy-dark);
+}
+
+.rm-modulo .rm-relatorio-vazio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px;
+    border: 1px dashed var(--line);
+    border-radius: 10px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.rm-modulo .rm-relatorio-vazio i { color: var(--green); }
+
+.rm-modulo .rm-relatorio-rodape { display: none; }
+
+@media (max-width: 640px) {
+    .rm-modulo .rm-relatorio-acoes { justify-content: stretch; }
+    .rm-modulo .rm-relatorio-acoes .btn { flex: 1 1 auto; }
+    .rm-modulo .rm-relatorio table td.num { text-align: right; }
+}
+
+/* =====================================================================
+   Impressão / PDF
+   ===================================================================== */
+@page {
+    margin: 12mm 10mm;
+}
+
+@media print {
+    html, body { background: #fff !important; }
+    body::before { display: none !important; }
+
+    .rm-topbar, .rm-toolbar, .rm-flash, .rm-toasts, .rm-sessao-barra-modulo, .no-print { display: none !important; }
+
+    main.rm-tema-slide { padding: 0 !important; margin: 0 !important; max-width: none !important; }
+    .rm-modulo { max-width: none; width: 100%; }
+
+    .rm-tema-slide .rm-modulo .rm-relatorio {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* Cabeçalho do relatório */
+    .rm-tema-slide .rm-modulo .rm-relatorio .report-head {
+        display: block;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--green);
+    }
+
+    .rm-tema-slide .rm-modulo .rm-relatorio .rm-relatorio-marca {
+        display: block;
+        font-size: 9pt;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: var(--green);
+        margin-bottom: 2px;
+    }
+
+    .rm-tema-slide .rm-modulo .rm-relatorio .report-head h1 { font-size: 18pt; color: var(--navy-dark); }
+    .rm-tema-slide .rm-modulo .rm-relatorio .report-head h1::before { display: none; }
+    .rm-tema-slide .rm-modulo .rm-relatorio .report-head .sub { font-size: 9pt; margin: 2px 0 6px; }
+    .rm-tema-slide .rm-modulo .rm-relatorio .rm-relatorio-parametros { margin: 0; font-size: 8.5pt; gap: 2px 14px; }
+    .rm-tema-slide .rm-modulo .rm-relatorio .rm-relatorio-parametros div { padding: 0; border: 0; background: none; }
+
+    /* Indicadores em uma linha de caixas */
+    .rm-modulo .rm-relatorio-resumo { grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 10px; }
+    .rm-modulo .rm-relatorio-indicador { padding: 6px 8px; border-radius: 6px; box-shadow: none; border-left-width: 4px; break-inside: avoid; }
+    .rm-modulo .rm-relatorio-indicador-rotulo { font-size: 7pt; }
+    .rm-modulo .rm-relatorio-indicador strong { font-size: 14pt; }
+    .rm-modulo .rm-relatorio-indicador-detalhe { font-size: 7.5pt; }
+
+    /* Seções: sem cartão nem sombra, a tabela ocupa a folha inteira */
+    .rm-tema-slide .rm-modulo .rm-relatorio .card { border: 0; border-radius: 0; padding: 0; box-shadow: none; background: none; }
+    .rm-modulo .rm-relatorio-secao { margin: 12px 0 0; }
+    .rm-modulo .rm-relatorio-secao-topo { break-after: avoid; page-break-after: avoid; }
+    .rm-modulo .rm-relatorio-secao-topo h2 { font-size: 12pt; }
+    .rm-modulo .rm-relatorio-contagem { font-size: 8pt; padding: 1px 8px; }
+    .rm-modulo .rm-relatorio-secao-descricao { font-size: 8.5pt; margin: 2px 0 6px; break-after: avoid; page-break-after: avoid; }
+    .rm-modulo .rm-relatorio-vazio { font-size: 9pt; padding: 6px 8px; }
+
+    /* Nada de rolagem: a tabela cabe na largura da folha */
+    .rm-tema-slide .rm-modulo .rm-relatorio .table-wrap { overflow: visible !important; }
+
+    .rm-tema-slide .rm-modulo .rm-relatorio table {
+        width: 100%;
+        table-layout: auto;
+        border-collapse: collapse;
+        font-size: 9.5pt;
+        line-height: 1.3;
+    }
+
+    /* Fonte proporcional à quantidade de colunas (tabelas mais largas usam letra menor) */
+    .rm-tema-slide .rm-modulo .rm-relatorio [data-colunas="poucas"] table { font-size: 10pt; }
+    .rm-tema-slide .rm-modulo .rm-relatorio [data-colunas="medias"] table { font-size: 8.5pt; }
+    .rm-tema-slide .rm-modulo .rm-relatorio [data-colunas="muitas"] table { font-size: 7.5pt; }
+
+    /* Desfaz o modo "cartão" que as tabelas usam no celular: no papel é sempre tabela */
+    .rm-tema-slide .rm-modulo .rm-relatorio table thead { display: table-header-group; }
+    .rm-tema-slide .rm-modulo .rm-relatorio table tfoot { display: table-row-group; }
+    .rm-tema-slide .rm-modulo .rm-relatorio table.rm-stack tbody { display: table-row-group; }
+    .rm-tema-slide .rm-modulo .rm-relatorio table.rm-stack tr {
+        display: table-row;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        background: none;
+    }
+    .rm-tema-slide .rm-modulo .rm-relatorio table.rm-stack td,
+    .rm-tema-slide .rm-modulo .rm-relatorio table.rm-stack th { display: table-cell; text-align: left; }
+    .rm-tema-slide .rm-modulo .rm-relatorio table.rm-stack td.num,
+    .rm-tema-slide .rm-modulo .rm-relatorio table.rm-stack th.num { text-align: right; }
+    .rm-tema-slide .rm-modulo .rm-relatorio table.rm-stack td::before { content: none !important; }
+
+    /* Cabeçalho da tabela (repete no topo de cada página) */
+    .rm-tema-slide .rm-modulo .rm-relatorio th {
+        background: var(--navy-dark);
+        color: #fff;
+        font-size: .85em;
+        font-weight: 700;
+        letter-spacing: .03em;
+        padding: 5px 6px;
+        border: 1px solid var(--navy-dark);
+        border-radius: 0 !important;
+        white-space: normal;
+        vertical-align: bottom;
+    }
+
+    .rm-tema-slide .rm-modulo .rm-relatorio td {
+        padding: 4px 6px;
+        border: 1px solid #c9d2df !important;
+        vertical-align: top;
+        /* Quebra entre palavras; só corta uma palavra se ela sozinha não couber na coluna */
+        overflow-wrap: break-word;
+        word-break: normal;
+        hyphens: auto;
+    }
+
+    .rm-tema-slide .rm-modulo .rm-relatorio tfoot td { background: #e8eef7 !important; font-weight: 800; border-top: 2px solid var(--navy-dark) !important; }
+
+    /* Etiquetas viram texto com fundo leve (economiza tinta e cabe na coluna) */
+    .rm-tema-slide .rm-modulo .rm-relatorio .badge { padding: 0 5px; font-size: .9em; }
+
+    /* Valores curtos (datas, tipos, números) nunca quebram no meio */
+    .rm-tema-slide .rm-modulo .rm-relatorio td.rm-curto { white-space: nowrap; }
+
+    .rm-tema-slide .rm-modulo .rm-relatorio tbody tr:nth-child(even) td { background: #f2f5f9; }
+
+    /* Uma linha nunca é cortada entre duas páginas */
+    .rm-tema-slide .rm-modulo .rm-relatorio tr { break-inside: avoid; page-break-inside: avoid; }
+    .rm-tema-slide .rm-modulo .rm-relatorio .report-head { break-after: avoid; page-break-after: avoid; }
+
+    .rm-modulo .rm-relatorio-rodape {
+        display: block;
+        margin-top: 10px;
+        padding-top: 6px;
+        border-top: 1px solid #c9d2df;
+        font-size: 7.5pt;
+        color: var(--muted);
+        text-align: right;
+    }
+}

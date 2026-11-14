@@ -1,0 +1,524 @@
+/*
+ * Tema "slides do RadarMind" para as telas internas (dashboards, estoque, movimentações,
+ * alertas, pedidos de reposição, O.S. e relatórios).
+ *
+ * Identidade dos slides: fundo azul royal com ondas verdes, títulos em serifa elegante
+ * (Playfair Display) brancos, faixas em cápsula verde, destaques em verde-limão e
+ * cartões brancos bem arredondados.
+ *
+ * Só ESTÉTICA: nenhuma regra muda comportamento. Tudo começa com .rm-tema-slide, que fica
+ * só no <main> das telas internas: a tela de login (layout appsemlinks) e a navbar
+ * (fora do <main>) não são afetadas.
+ */
+
+.rm-tema-slide {
+    --slide-azul: #0A3F8C;
+    --slide-azul-escuro: #072B63;
+    --slide-verde: #1E7A3F;
+    --slide-verde-claro: #4CA03E;
+    --slide-verde-agua: #2A8C6E;
+    --slide-limao: #9BE15D;
+    --slide-texto: #0D2250;
+    --slide-raio: 22px;
+    --slide-sombra: 0 12px 30px #0a285a24, 0 1px 3px #0a285a14;
+    --slide-capsula: linear-gradient(90deg, var(--slide-verde) 0%, var(--slide-verde-claro) 100%);
+    /* fonte única do sistema (Karla, definida no app.css) */
+    --slide-fonte-titulo: var(--rm-fonte, "Karla", sans-serif);
+    --slide-fonte-destaque: var(--rm-fonte, "Karla", sans-serif);
+}
+
+/* ===== Fundo das páginas internas: azul royal com ondas verdes (como os slides) ===== */
+/* A imagem inteira (azul + ondas verdes) fica NÍTIDA, mas apagada sobre o branco:
+   fundo claro, esbranquiçado, com o desenho dos slides ao fundo */
+body:has(> main.rm-tema-slide) {
+    background: #d4ffdd;
+}
+
+body:has(> main.rm-tema-slide)::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: url("../images/tema-slide-ondas.svg") center / cover no-repeat;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* ===== Títulos que ficam direto sobre o fundo azul: brancos, serifados, com as setas ▷▷▷ ===== */
+.rm-tema-slide .rm-page-title,
+.rm-tema-slide .rm-modulo > h1,
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) > h1,
+.rm-tema-slide .rm-modulo .report-head h1,
+.rm-tema-slide .rm-pedidos .page-heading h1,
+.rm-tema-slide .rm-central-alertas .rm-titulo {
+    font-family: var(--slide-fonte-titulo);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    color: var(--slide-azul);
+}
+
+.rm-tema-slide .rm-modulo > h1,
+
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) > h1,
+.rm-tema-slide .rm-pedidos .page-heading h1,
+.rm-tema-slide .rm-central-alertas .rm-titulo {
+    font-size: 2.3rem;
+}
+
+.rm-tema-slide .rm-page-title::before,
+.rm-tema-slide .rm-modulo > h1::before,
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) > h1::before,
+.rm-tema-slide .rm-modulo .report-head h1::before,
+.rm-tema-slide .rm-pedidos .page-heading h1::before,
+.rm-tema-slide .rm-central-alertas .rm-titulo::before {
+    content: "";
+    display: inline-block;
+    width: 3.1em;
+    max-width: 64px;
+    height: 0.72em;
+    margin-right: 0.45em;
+    vertical-align: 0.02em;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 66 22'%3E%3Cg fill='none' stroke-width='2.4' stroke-linejoin='round'%3E%3Cpath d='M2 2 L19 11 L2 20 Z' stroke='%2328A07A' fill='%2328A07A' fill-opacity='.35'/%3E%3Cpath d='M23 2 L40 11 L23 20 Z' stroke='%233FB86A' fill='%233FB86A' fill-opacity='.35'/%3E%3Cpath d='M44 2 L61 11 L44 20 Z' stroke='%239BE15D' fill='%239BE15D' fill-opacity='.35'/%3E%3C/g%3E%3C/svg%3E") left center / contain no-repeat;
+}
+
+/* Títulos DENTRO de cartões brancos (ex.: formulário de O.S.) continuam escuros e sem setas */
+.rm-tema-slide .rm-panel .rm-page-title,
+.rm-tema-slide .rm-form-panel .rm-page-title {
+    color: var(--slide-texto);
+    text-shadow: none;
+}
+
+.rm-tema-slide .rm-panel .rm-page-title::before,
+.rm-tema-slide .rm-form-panel .rm-page-title::before {
+    display: none;
+}
+
+/* ===== Subtítulos sobre o fundo: faixa em cápsula verde (como "a introdução do produto") ===== */
+.rm-tema-slide .rm-page-subtitle,
+.rm-tema-slide .rm-modulo > .sub,
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) > .sub,
+.rm-tema-slide .rm-pedidos .page-heading .subtitle,
+.rm-tema-slide .rm-central-alertas .rm-subtitulo {
+    display: inline-block;
+    max-width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.4rem 1.2rem;
+    border-radius: 18px;
+    background: var(--slide-capsula);
+    color: #fff;
+    font-family: var(--slide-fonte-destaque);
+    font-weight: 600;
+    font-size: 0.92rem;
+    box-shadow: 0 6px 16px rgba(3, 18, 58, 0.25);
+}
+
+.rm-tema-slide .rm-panel .rm-page-subtitle,
+.rm-tema-slide .rm-form-panel .rm-page-subtitle {
+    display: block;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    color: var(--rm-text-muted, #5b6b7d);
+    font-family: inherit;
+    font-weight: 400;
+}
+
+/* "Logado em ..." e textos pequenos sobre o fundo: verde dos slides */
+.rm-tema-slide .rm-sub-eyebrow,
+.rm-tema-slide .rm-pedidos .eyebrow {
+    color: var(--slide-verde);
+    font-family: var(--slide-fonte-destaque);
+    letter-spacing: 0.08em;
+}
+
+.rm-tema-slide .rm-local-tag {
+    background: #fff;
+    border: 1px solid #D6E2F0;
+    color: var(--slide-azul);
+    font-family: var(--slide-fonte-destaque);
+    box-shadow: 0 4px 12px rgba(10, 63, 140, 0.1);
+}
+
+/* Card "Logado em..." no topo de todas as telas: mesmo tamanho do card do dashboard */
+.rm-tema-slide .rm-sessao-barra { padding-top: 1.5rem; }
+.rm-tema-slide > .rm-sessao-barra + div { padding-top: 1rem !important; }
+.rm-tema-slide .rm-sessao-barra-modulo { max-width: 1200px; margin: 0 auto 14px; }
+.rm-tema-slide :is(.rm-sessao-barra, .rm-sessao-barra-modulo) .rm-local-tag { font-size: 1rem; }
+
+.rm-tema-slide .rm-local-tag i {
+    display: inline-grid;
+    place-items: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+    background: var(--slide-capsula);
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+/* ===== Botões "Voltar" e "Ver todos": simples, só contorno, sem degradê ===== */
+/* .rm-panel-header-link = "Voltar..." e "Ver todos" dos dashboards;
+   .rm-sub-ver = "Ver todos" do dashboard da subempresa;
+   .card-title .link = "Ver todos os pedidos" da tela de Estoque */
+.rm-tema-slide .rm-panel-header-link,
+.rm-tema-slide .rm-sub .rm-sub-ver,
+.rm-tema-slide .rm-modulo .card-title a.link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: transparent;
+    background-size: auto;
+    border: 1px solid rgba(10, 63, 140, 0.45);
+    border-radius: 999px;
+    box-shadow: none;
+    color: var(--slide-azul);
+    padding: 0.45rem 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+}
+
+/* "Ver todas as subempresas" (rodapé do ranking): mesma cápsula, alinhada à direita */
+.rm-tema-slide .rm-panel-footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    align-self: flex-end;
+    margin-top: 0.9rem;
+    padding: 0.45rem 1.1rem;
+    border: 1px solid rgba(10, 63, 140, 0.45);
+    border-radius: 999px;
+    color: var(--slide-azul);
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+}
+
+.rm-tema-slide .rm-panel-footer-link:hover,
+.rm-tema-slide .rm-panel-footer-link:focus-visible,
+.rm-tema-slide .rm-panel-header-link:hover,
+.rm-tema-slide .rm-panel-header-link:focus-visible,
+.rm-tema-slide .rm-sub .rm-sub-ver:hover,
+.rm-tema-slide .rm-sub .rm-sub-ver:focus-visible,
+.rm-tema-slide .rm-modulo .card-title a.link:hover,
+.rm-tema-slide .rm-modulo .card-title a.link:focus-visible {
+    background: rgba(10, 63, 140, 0.08);
+    border-color: var(--slide-azul);
+    color: var(--slide-azul);
+    box-shadow: none;
+    transform: none;
+    text-decoration: none;
+}
+
+/* Links de texto sobre o fundo */
+.rm-tema-slide .rm-central-alertas #btn-marcar-todos {
+    color: var(--slide-azul);
+    font-family: var(--slide-fonte-destaque);
+    font-weight: 600;
+}
+
+/* ===== Cartões brancos bem arredondados e com sombra (como o cartão do logo) ===== */
+.rm-tema-slide .rm-panel,
+.rm-tema-slide .rm-stat-card,
+.rm-tema-slide .rm-modulo .card,
+.rm-tema-slide .rm-sub .card,
+.rm-tema-slide .rm-pedidos .form-card,
+.rm-tema-slide .rm-pedidos .list-card,
+.rm-tema-slide .rm-central-alertas .rm-cartao,
+.rm-tema-slide .rm-os-card,
+.rm-tema-slide .rm-form-panel {
+    border-radius: var(--slide-raio);
+    border-color: #E1E8F2;
+    box-shadow: var(--slide-sombra);
+}
+
+/* Títulos dos cartões na fonte de destaque dos slides */
+.rm-tema-slide .rm-panel-title,
+.rm-tema-slide .rm-modulo .card-title,
+.rm-tema-slide .rm-sub .card h2,
+.rm-tema-slide .rm-pedidos .card-heading h2,
+.rm-tema-slide .rm-pedidos .list-heading h2,
+.rm-tema-slide .rm-modulo .pick h3 {
+    font-family: var(--slide-fonte-destaque);
+    font-weight: 700;
+    color: var(--slide-texto);
+}
+
+/* Ícones dos indicadores: círculo verde, como os números do "Sumário" */
+.rm-tema-slide .rm-stat-icon,
+.rm-tema-slide .rm-modulo .tile {
+    border-radius: 50%;
+    background: var(--slide-capsula) !important;
+    color: #fff !important;
+    box-shadow: 0 0 0 4px rgba(155, 225, 93, 0.25);
+}
+
+.rm-tema-slide .rm-stat-value,
+.rm-tema-slide .rm-modulo .stat strong {
+    font-family: var(--slide-fonte-titulo);
+    color: var(--slide-texto);
+}
+
+/* Indicadores do dashboard da subempresa: cápsulas verdes e azuis, como as pílulas dos slides */
+.rm-tema-slide .rm-sub .kpi {
+    border-radius: var(--slide-raio);
+    background: var(--slide-capsula);
+    box-shadow: var(--slide-sombra);
+}
+
+.rm-tema-slide .rm-sub .kpi:nth-child(even) {
+    background: linear-gradient(135deg, #0B4593 0%, var(--slide-azul-escuro) 100%);
+}
+
+.rm-tema-slide .rm-sub .kpi span {
+    color: #E7F6DA;
+    font-family: var(--slide-fonte-destaque);
+    font-weight: 500;
+}
+
+.rm-tema-slide .rm-sub .kpi strong {
+    font-family: var(--slide-fonte-titulo);
+    color: #fff;
+}
+
+.rm-tema-slide .rm-sub .kpi:nth-child(even) strong {
+    color: var(--slide-limao);
+}
+
+/* ===== Botões principais: cápsula verde em degradê ===== */
+.rm-tema-slide .btn-rm-submit,
+.rm-tema-slide .rm-modulo .btn:not(.ghost),
+.rm-tema-slide .rm-modulo .pill,
+.rm-tema-slide .rm-sub .btn:not(.sec),
+.rm-tema-slide .rm-pedidos .btn-submit {
+    border: 0;
+    border-radius: 999px;
+    background: var(--slide-capsula);
+    color: #fff;
+    font-family: var(--slide-fonte-destaque);
+    font-weight: 600;
+    box-shadow: 0 6px 16px rgba(30, 122, 63, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.rm-tema-slide .btn-rm-submit:hover,
+.rm-tema-slide .rm-modulo .btn:not(.ghost):hover,
+.rm-tema-slide .rm-modulo .pill:hover,
+.rm-tema-slide .rm-sub .btn:not(.sec):hover,
+.rm-tema-slide .rm-pedidos .btn-submit:hover {
+    background: var(--slide-capsula);
+    color: #fff;
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(30, 122, 63, 0.45), 0 0 0 3px rgba(155, 225, 93, 0.35);
+}
+
+.rm-tema-slide .rm-modulo .btn.ghost,
+.rm-tema-slide .rm-pedidos .btn-refresh {
+    border-radius: 999px;
+    font-family: var(--slide-fonte-destaque);
+    font-weight: 600;
+}
+
+.rm-tema-slide .rm-central-alertas .btn-primary {
+    --bs-btn-bg: var(--slide-verde);
+    --bs-btn-border-color: var(--slide-verde);
+    --bs-btn-hover-bg: #186633;
+    --bs-btn-hover-border-color: #186633;
+    --bs-btn-active-bg: #145a2c;
+    --bs-btn-active-border-color: #145a2c;
+    border-radius: 999px;
+    font-family: var(--slide-fonte-destaque);
+    font-weight: 600;
+}
+
+/* ===== Filtros, abas e etiquetas ===== */
+.rm-tema-slide .rm-filter {
+    font-family: var(--slide-fonte-destaque);
+}
+
+.rm-tema-slide .rm-filter.active,
+.rm-tema-slide .rm-modulo .chip.on {
+    background: var(--slide-capsula);
+    border-color: transparent;
+    color: #fff;
+}
+
+.rm-tema-slide .rm-filter.active .rm-filter-count {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+}
+
+.rm-tema-slide .rm-central-alertas .rm-aba {
+    font-family: var(--slide-fonte-destaque);
+}
+
+.rm-tema-slide .rm-central-alertas .rm-aba.ativa {
+    color: var(--slide-verde);
+    border-bottom-color: var(--slide-limao);
+}
+
+.rm-tema-slide .rm-modulo .pick.selected {
+    border-color: var(--slide-verde-claro);
+    box-shadow: 0 0 0 3px rgba(155, 225, 93, 0.35), var(--slide-sombra);
+}
+
+/* ===== Tabelas: cabeçalho em faixa clara arredondada ===== */
+.rm-tema-slide .rm-modulo th,
+.rm-tema-slide .rm-sub th,
+.rm-tema-slide .rm-table thead th {
+    background: #EAF1FB;
+    color: #284A7E;
+    font-family: var(--slide-fonte-destaque);
+}
+
+.rm-tema-slide .rm-modulo th:first-child,
+.rm-tema-slide .rm-sub th:first-child,
+.rm-tema-slide .rm-table thead th:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+.rm-tema-slide .rm-modulo th:last-child,
+.rm-tema-slide .rm-sub th:last-child,
+.rm-tema-slide .rm-table thead th:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+/* ===== Campos de formulário mais arredondados ===== */
+.rm-tema-slide .rm-modulo input,
+.rm-tema-slide .rm-modulo select,
+.rm-tema-slide .rm-modulo textarea,
+.rm-tema-slide .rm-pedidos .form-control,
+.rm-tema-slide .rm-pedidos .form-select {
+    border-radius: 12px;
+}
+
+/* ===== Avisos (sucesso/erro) com o mesmo arredondado ===== */
+.rm-tema-slide .alert {
+    border-radius: 16px;
+    border: 0;
+    box-shadow: 0 8px 20px rgba(3, 18, 58, 0.2);
+}
+
+/* ===== Central de alertas: o fundo azul do tema aparece por trás ===== */
+.rm-tema-slide .rm-central-alertas {
+    background: transparent;
+}
+
+/* ===== Cartão de O.S. do dashboard: verde dos slides ===== */
+.rm-tema-slide .rm-os-panel {
+    border-radius: var(--slide-raio);
+    background: linear-gradient(160deg, #145a2c 0%, var(--slide-verde) 55%, var(--slide-verde-claro) 100%);
+    box-shadow: var(--slide-sombra);
+}
+
+.rm-tema-slide .rm-os-title {
+    font-family: var(--slide-fonte-titulo);
+}
+
+/* ===== Telas de Estoque (e edição do item) e Movimentações: letras maiores para enxergar melhor ===== */
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) table { font-size: 15.5px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) th { font-size: 12.5px; padding: 10px 12px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) td { padding: 14px 12px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) td.code { font-size: 15px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .cell-sub { font-size: 13.5px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .badge { font-size: 13px; padding: 4px 12px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .link { font-size: 14.5px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .card-title { font-size: 17px; gap: 10px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .sec-title { font-size: 14.5px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .stat .lbl { font-size: 14px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .stat .hint { font-size: 12.5px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .stat strong { font-size: 32px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .tile { width: 40px; height: 40px; font-size: 17px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .chip { font-size: 14.5px; padding: 8px 16px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .pill { font-size: 13.5px; min-height: 36px; padding: 0 18px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .btn { font-size: 15.5px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) label { font-size: 14px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) input,
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) select,
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) textarea { font-size: 15.5px; height: 44px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) textarea { height: 90px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .field-hint { font-size: 13px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .empty { font-size: 14.5px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) > .sub { font-size: 1rem; }
+
+/* Estoque e Movimentações não têm subtítulo: o título ganha o espaço antes dos cartões */
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) > h1 { margin-bottom: 20px; }
+
+/* Ícones de maquinário (trator) e peça (chave) */
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .thumb { width: 46px; height: 46px; font-size: 19px; color: var(--slide-azul); }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .thumb.big { width: 76px; height: 76px; font-size: 28px; }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .sec-title i,
+.rm-tema-slide .rm-modulo .card-title > i { color: var(--slide-verde); }
+.rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) .chip i { margin-right: 4px; }
+
+/* ===== Dashboard da matriz: letras maiores ===== */
+.rm-tema-slide .rm-painel-matriz .rm-local-tag { font-size: 1rem; }
+.rm-tema-slide .rm-painel-matriz .rm-stat-label { font-size: 1rem; }
+.rm-tema-slide .rm-painel-matriz .rm-stat-value { font-size: 2.1rem; }
+.rm-tema-slide .rm-painel-matriz .rm-stat-trend { font-size: 0.92rem; }
+.rm-tema-slide .rm-painel-matriz .rm-stat-icon { font-size: 1.35rem; }
+.rm-tema-slide .rm-painel-matriz .rm-panel-title { font-size: 1.2rem; }
+.rm-tema-slide .rm-painel-matriz .rm-panel-icon { font-size: 1.2rem; }
+.rm-tema-slide .rm-painel-matriz .rm-panel-header-link,
+.rm-tema-slide .rm-painel-matriz .rm-panel-footer-link { font-size: 0.95rem; }
+.rm-tema-slide .rm-painel-matriz .rm-badge-count { font-size: 0.85rem; }
+.rm-tema-slide .rm-painel-matriz .rm-empty { font-size: 1rem; }
+.rm-tema-slide .rm-painel-matriz .rm-rank-pos { font-size: 0.95rem; }
+.rm-tema-slide .rm-painel-matriz .rm-rank-head { font-size: 1.05rem; }
+.rm-tema-slide .rm-painel-matriz .rm-rank-meta { font-size: 0.9rem; }
+.rm-tema-slide .rm-painel-matriz .rm-alert-icon { font-size: 1.05rem; }
+.rm-tema-slide .rm-painel-matriz .rm-alert-title { font-size: 1rem; }
+.rm-tema-slide .rm-painel-matriz .rm-alert-meta { font-size: 0.9rem; }
+.rm-tema-slide .rm-painel-matriz .rm-table { font-size: 1rem; }
+.rm-tema-slide .rm-painel-matriz .rm-table thead th { font-size: 0.88rem; }
+.rm-tema-slide .rm-painel-matriz .rm-tag,
+.rm-tema-slide .rm-painel-matriz .rm-status { font-size: 0.85rem; }
+.rm-tema-slide .rm-painel-matriz .rm-os-title { font-size: 1.3rem; }
+.rm-tema-slide .rm-painel-matriz .rm-os-desc { font-size: 1rem; }
+.rm-tema-slide .rm-painel-matriz .btn-rm-submit { font-size: 1.05rem; }
+
+/* ===== Dashboard da subempresa: letras maiores ===== */
+.rm-tema-slide .rm-sub .rm-sub-eyebrow { font-size: 0.92rem; }
+.rm-tema-slide .rm-sub .kpi span { font-size: 1.02rem; }
+.rm-tema-slide .rm-sub .kpi strong { font-size: 2.4rem; }
+.rm-tema-slide .rm-sub .acoes .btn { font-size: 1.08rem; }
+.rm-tema-slide .rm-sub .card h2 { font-size: 1.25rem; }
+.rm-tema-slide .rm-sub .rm-sub-ver { font-size: 0.95rem; }
+.rm-tema-slide .rm-sub .lista li { font-size: 1.05rem; }
+.rm-tema-slide .rm-sub .lista li small { font-size: 0.9rem; }
+.rm-tema-slide .rm-sub .tag { font-size: 0.9rem; }
+.rm-tema-slide .rm-sub table { font-size: 1.05rem; }
+.rm-tema-slide .rm-sub th { font-size: 0.95rem; }
+.rm-tema-slide .rm-sub td { padding: 10px 12px; }
+.rm-tema-slide .rm-sub .barra small { font-size: 1rem; }
+.rm-tema-slide .rm-sub .vazio { font-size: 1rem; }
+
+@media (max-width: 767.98px) {
+    .rm-tema-slide .rm-modulo > h1,
+    .rm-tema-slide :is(.rm-estoque, .rm-movimentacoes) > h1,
+    .rm-tema-slide .rm-pedidos .page-heading h1,
+    .rm-tema-slide .rm-central-alertas .rm-titulo {
+        font-size: 1.7rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rm-tema-slide .btn-rm-submit,
+    .rm-tema-slide .rm-modulo .btn,
+    .rm-tema-slide .rm-modulo .pill,
+    .rm-tema-slide .rm-sub .btn,
+    .rm-tema-slide .rm-pedidos .btn-submit {
+        transition: none;
+    }
+
+    .rm-tema-slide .btn-rm-submit:hover,
+    .rm-tema-slide .rm-modulo .btn:hover,
+    .rm-tema-slide .rm-modulo .pill:hover,
+    .rm-tema-slide .rm-sub .btn:hover,
+    .rm-tema-slide .rm-pedidos .btn-submit:hover {
+        transform: none;
+    }
+}

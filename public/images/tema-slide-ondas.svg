@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+  <!-- Fundo das telas internas no estilo dos slides do RadarMind:
+       azul royal com "ondas" verdes nos cantos e anéis concêntricos. -->
+  <defs>
+    <linearGradient id="azul" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B4593"/>
+      <stop offset="0.55" stop-color="#083E8A"/>
+      <stop offset="1" stop-color="#0A3678"/>
+    </linearGradient>
+    <linearGradient id="verdeTopo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1B7A3E"/>
+      <stop offset="0.6" stop-color="#2B8A63"/>
+      <stop offset="1" stop-color="#257569"/>
+    </linearGradient>
+    <linearGradient id="verdeBaixo" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#2E8F57"/>
+      <stop offset="1" stop-color="#1B6F45"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#azul)"/>
+
+  <!-- onda verde do canto superior esquerdo (duas camadas, como nos slides) -->
+  <path d="M0 0 H760 C690 70 610 120 500 140 C360 165 300 220 230 300 C170 370 90 400 0 410 Z" fill="url(#verdeTopo)" opacity="0.55"/>
+  <path d="M0 0 H560 C500 60 430 95 340 108 C230 124 170 175 115 240 C80 280 40 300 0 306 Z" fill="url(#verdeTopo)" opacity="0.85"/>
+
+  <!-- onda verde do canto inferior direito -->
+  <path d="M1440 470 C1370 520 1330 600 1250 650 C1150 712 1020 700 930 760 C860 806 830 860 800 900 H1440 Z" fill="url(#verdeBaixo)" opacity="0.5"/>
+  <path d="M1440 610 C1390 650 1360 710 1290 745 C1210 785 1110 790 1050 840 C1025 860 1010 880 1000 900 H1440 Z" fill="url(#verdeBaixo)" opacity="0.9"/>
+
+  <!-- onda verde-azulada discreta embaixo à esquerda -->
+  <path d="M0 760 C120 720 260 730 380 790 C450 825 520 870 560 900 H0 Z" fill="#1F7A6A" opacity="0.35"/>
+
+  <!-- anéis concêntricos (enfeite dos slides) -->
+  <g fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="1.5">
+    <circle cx="250" cy="690" r="38"/>
+    <circle cx="250" cy="690" r="54"/>
+    <circle cx="250" cy="690" r="70"/>
+    <circle cx="250" cy="690" r="86"/>
+    <circle cx="1395" cy="40" r="30"/>
+    <circle cx="1395" cy="40" r="46"/>
+    <circle cx="1395" cy="40" r="62"/>
+  </g>
+
+  <!-- pontilhado (enfeite dos slides) -->
+  <g fill="#FFFFFF" fill-opacity="0.16">
+    <circle cx="1180" cy="150" r="2.5"/><circle cx="1200" cy="150" r="2.5"/><circle cx="1220" cy="150" r="2.5"/><circle cx="1240" cy="150" r="2.5"/><circle cx="1260" cy="150" r="2.5"/>
+    <circle cx="1180" cy="170" r="2.5"/><circle cx="1200" cy="170" r="2.5"/><circle cx="1220" cy="170" r="2.5"/><circle cx="1240" cy="170" r="2.5"/><circle cx="1260" cy="170" r="2.5"/>
+    <circle cx="1180" cy="190" r="2.5"/><circle cx="1200" cy="190" r="2.5"/><circle cx="1220" cy="190" r="2.5"/><circle cx="1240" cy="190" r="2.5"/><circle cx="1260" cy="190" r="2.5"/>
+  </g>
+</svg>

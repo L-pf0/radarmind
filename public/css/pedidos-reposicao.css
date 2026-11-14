@@ -1,0 +1,667 @@
+/*
+ * Pedidos de Reposição (módulo feito pelo grupo em HTML/CSS/JS + Python).
+ * Regras isoladas em .rm-pedidos para não afetar o restante do sistema.
+ */
+.rm-pedidos {
+    --fundo: #F3F6F8;
+    --verde: #2B8C73;
+    --verde-escuro: #1F6B58;
+    --azul: #00418C;
+    --azul-escuro: #003470;
+    --texto: #12263F;
+    --texto-suave: #44566B;
+    --borda: #D7DDC8;
+    --erro: #9B1C1C;
+    color: var(--texto);
+}
+
+.rm-pedidos .page-heading h1 {
+    color: var(--azul);
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.rm-pedidos .eyebrow {
+    color: var(--verde-escuro);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.rm-pedidos .subtitle {
+    color: var(--texto-suave);
+}
+
+.rm-pedidos .form-card,
+.rm-pedidos .list-card {
+    background: #FFFFFF;
+    border: 1px solid var(--borda);
+    border-top: 5px solid var(--verde);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.rm-pedidos .card-heading,
+.rm-pedidos .list-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 22px 32px;
+    border-bottom: 1px solid var(--borda);
+}
+
+.rm-pedidos .card-heading h2,
+.rm-pedidos .list-heading h2 {
+    color: var(--azul);
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 2px;
+}
+
+.rm-pedidos .card-heading p,
+.rm-pedidos .list-heading p {
+    color: var(--texto-suave);
+    font-size: 0.92rem;
+}
+
+.rm-pedidos .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 14px;
+    border-radius: 999px;
+    background: #E4F3EE;
+    color: var(--verde-escuro);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.rm-pedidos .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--verde);
+}
+
+.rm-pedidos .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    color: var(--azul);
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.rm-pedidos .section-title span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: var(--verde-escuro);
+    color: #FFFFFF;
+    font-size: 0.8rem;
+}
+
+.rm-pedidos .form-label {
+    color: var(--texto);
+    font-weight: 700;
+}
+
+.rm-pedidos .form-label span,
+.rm-pedidos .required-note span {
+    color: var(--erro);
+}
+
+.rm-pedidos .form-control {
+    border: 1.5px solid #9AA8B5;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.rm-pedidos .form-control:focus {
+    border-color: var(--verde);
+    box-shadow: 0 0 0 0.25rem rgba(43, 140, 115, 0.3);
+}
+
+.rm-pedidos .form-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.rm-pedidos .required-note {
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+}
+
+.rm-pedidos .btn-submit {
+    padding: 11px 28px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--azul);
+    color: #FFFFFF;
+    font-weight: 800;
+}
+
+.rm-pedidos .btn-submit:hover,
+.rm-pedidos .btn-submit:focus-visible {
+    background: var(--azul-escuro);
+    color: #FFFFFF;
+}
+
+.rm-pedidos .btn-submit:disabled {
+    background: var(--azul);
+    color: #FFFFFF;
+    opacity: 0.65;
+}
+
+.rm-pedidos .btn-refresh {
+    padding: 8px 18px;
+    border: 2px solid var(--azul);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--azul);
+    font-weight: 700;
+}
+
+.rm-pedidos .btn-refresh:hover,
+.rm-pedidos .btn-refresh:focus-visible {
+    background: var(--azul);
+    color: #FFFFFF;
+}
+
+.rm-pedidos .btn-editar {
+    border: 0;
+    background: var(--azul);
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.rm-pedidos .btn-editar:hover,
+.rm-pedidos .btn-editar:focus-visible {
+    background: var(--azul-escuro);
+    color: #FFFFFF;
+}
+
+.rm-pedidos .modal-content {
+    border: 1px solid var(--borda);
+    border-top: 5px solid var(--verde);
+    border-radius: 14px;
+}
+
+.rm-pedidos .modal-title {
+    color: var(--azul);
+    font-weight: 800;
+}
+
+.rm-pedidos .btn:focus-visible {
+    outline: 3px solid var(--verde);
+    outline-offset: 2px;
+    box-shadow: none;
+}
+
+.rm-pedidos #pedidosLista {
+    padding: 8px 32px 24px;
+}
+
+.rm-pedidos .table thead th {
+    color: var(--azul);
+    font-size: 0.88rem;
+    background: transparent;
+    border-bottom: 2px solid var(--verde);
+    white-space: nowrap;
+}
+
+.rm-pedidos .table tbody tr:hover > * {
+    background-color: var(--fundo);
+}
+
+.rm-pedidos .empty-state {
+    padding: 32px 12px;
+    text-align: center;
+    color: var(--texto-suave);
+}
+
+.rm-pedidos #feedback {
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+@media (max-width: 767.98px) {
+    .rm-pedidos .card-heading,
+    .rm-pedidos .list-heading {
+        padding: 18px 20px;
+    }
+
+    .rm-pedidos #pedidosLista {
+        padding: 8px 16px 20px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .rm-pedidos .page-heading h1 {
+        font-size: 1.6rem;
+    }
+
+    .rm-pedidos #pedidoForm {
+        padding: 1.25rem !important;
+    }
+
+    .rm-pedidos .form-footer {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .rm-pedidos .btn-submit,
+    .rm-pedidos .list-heading .btn-refresh {
+        width: 100%;
+    }
+
+    .rm-pedidos #pedidosLista {
+        padding: 12px;
+    }
+
+    /* Tabela vira cartões: cada linha mostra "COLUNA ...... valor" (data-label vem do JS) */
+    .rm-pedidos .rm-pedidos-tabela thead {
+        display: none;
+    }
+
+    .rm-pedidos .rm-pedidos-tabela tr {
+        display: block;
+        margin-bottom: 12px;
+        padding: 8px 14px;
+        border: 1px solid var(--borda);
+        border-radius: 12px;
+        background: #FFFFFF;
+    }
+
+    .rm-pedidos .rm-pedidos-tabela tr:last-child {
+        margin-bottom: 0;
+    }
+
+    .rm-pedidos .rm-pedidos-tabela td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 0;
+        border-bottom: 1px dashed var(--borda);
+        text-align: right;
+        overflow-wrap: anywhere;
+    }
+
+    .rm-pedidos .rm-pedidos-tabela td::before {
+        content: attr(data-label);
+        flex-shrink: 0;
+        color: var(--texto-suave);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        text-align: left;
+    }
+
+    .rm-pedidos .rm-pedidos-tabela td.rm-pedidos-acoes {
+        border-bottom: 0;
+        padding-top: 12px;
+    }
+
+    .rm-pedidos .rm-pedidos-tabela td.rm-pedidos-acoes::before {
+        display: none;
+    }
+
+    .rm-pedidos .rm-pedidos-acoes > div {
+        width: 100%;
+    }
+
+    .rm-pedidos .rm-pedidos-acoes .btn {
+        flex: 1;
+    }
+
+    .rm-pedidos .table tbody tr:hover > * {
+        background-color: transparent;
+    }
+}
+
+/* ===== Status do pedido (Em aberto / Atendido / Cancelado) ===== */
+.rm-pedidos .rm-pedido-status {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.rm-pedidos .rm-pedido-status.status-aberto {
+    background: #FFF4CC;
+    color: #6B4A00;
+}
+
+.rm-pedidos .rm-pedido-status.status-atendido {
+    background: #E4F3EE;
+    color: var(--verde-escuro);
+}
+
+.rm-pedidos .rm-pedido-status.status-cancelado {
+    background: #FDEAEA;
+    color: var(--erro);
+}
+
+.rm-pedidos .rm-pedido-status-select {
+    min-width: 130px;
+    border: 1.5px solid #9AA8B5;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.rm-pedidos .form-select {
+    border: 1.5px solid #9AA8B5;
+    border-radius: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.rm-pedidos .form-select:focus {
+    border-color: var(--verde);
+    box-shadow: 0 0 0 0.25rem rgba(43, 140, 115, 0.3);
+}
+
+.rm-pedidos .form-select:disabled {
+    background-color: #EEF1F4;
+}
+
+/* ===== Modal "Confirmar chegada do estoque" (status Atendido) ===== */
+.rm-pedidos .rm-chegada-modal .modal-dialog {
+    max-width: 520px;
+}
+
+.rm-pedidos .rm-chegada-modal .modal-content {
+    border: 0;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(7, 31, 64, 0.35);
+}
+
+/* Desce do topo com um leve quique, como o modal de sair */
+.rm-pedidos .rm-chegada-modal.fade .modal-dialog {
+    transform: translateY(-80px) scale(0.97);
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+}
+
+.rm-pedidos .rm-chegada-modal.show .modal-dialog {
+    transform: none;
+}
+
+.rm-pedidos .rm-chegada-topo {
+    position: relative;
+    padding: 1.8rem 1.5rem 1.4rem;
+    text-align: center;
+    color: #fff;
+    background:
+        radial-gradient(circle at 15% 0%, rgba(155, 225, 93, 0.35), transparent 45%),
+        linear-gradient(135deg, var(--azul) 0%, #0B4593 45%, var(--verde) 100%);
+}
+
+.rm-pedidos .rm-chegada-topo .btn-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.rm-pedidos .rm-chegada-icone {
+    width: 78px;
+    height: 78px;
+    margin: 0 auto 0.8rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 2.1rem;
+    color: var(--verde);
+    background: #fff;
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.18), 0 10px 24px rgba(3, 18, 58, 0.3);
+    animation: rm-chegada-pulso 2.2s ease-in-out infinite;
+}
+
+@keyframes rm-chegada-pulso {
+    0%, 100% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.18), 0 10px 24px rgba(3, 18, 58, 0.3); }
+    50% { box-shadow: 0 0 0 14px rgba(255, 255, 255, 0.08), 0 10px 24px rgba(3, 18, 58, 0.3); }
+}
+
+.rm-pedidos .rm-chegada-titulo {
+    margin: 0;
+    font-size: 1.45rem;
+    font-weight: 800;
+}
+
+.rm-pedidos .rm-chegada-subtitulo {
+    margin: 0.2rem 0 0;
+    opacity: 0.85;
+    font-weight: 600;
+}
+
+.rm-pedidos .rm-chegada-corpo {
+    padding: 1.4rem 1.5rem 0.4rem;
+}
+
+.rm-pedidos .rm-chegada-resumo {
+    display: grid;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.rm-pedidos .rm-chegada-info {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid #E3EAF3;
+    border-radius: 14px;
+    background: #F7FAFD;
+}
+
+.rm-pedidos .rm-chegada-info > i {
+    width: 38px;
+    height: 38px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #E6EDF7;
+    color: var(--azul);
+}
+
+/* Só o rótulo ("Unidade", "Item"...), não o número dentro do <strong> */
+.rm-pedidos .rm-chegada-info > div > span {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+}
+
+.rm-pedidos .rm-chegada-info strong {
+    color: var(--texto);
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+}
+
+.rm-pedidos .rm-chegada-qtd {
+    border-color: #BFE3CF;
+    background: #EAF7EF;
+}
+
+.rm-pedidos .rm-chegada-qtd > i {
+    background: var(--verde);
+    color: #fff;
+}
+
+.rm-pedidos .rm-chegada-qtd strong {
+    color: var(--verde-escuro);
+    font-size: 1.35rem;
+}
+
+.rm-pedidos .rm-chegada-saldo {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    padding: 0.8rem 1rem;
+    border-radius: 14px;
+    background: linear-gradient(90deg, #EEF3FA, #EAF7EF);
+    text-align: center;
+}
+
+.rm-pedidos .rm-chegada-saldo > div > span {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+}
+
+.rm-pedidos .rm-chegada-saldo strong {
+    font-size: 1.3rem;
+    color: var(--azul);
+}
+
+.rm-pedidos .rm-chegada-saldo div:last-child strong {
+    color: var(--verde-escuro);
+}
+
+.rm-pedidos .rm-chegada-saldo > i {
+    font-size: 1.4rem;
+    color: var(--verde);
+}
+
+.rm-pedidos .rm-chegada-label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.4rem;
+    font-weight: 800;
+    color: var(--azul);
+}
+
+.rm-pedidos .rm-chegada-label span {
+    color: var(--erro);
+}
+
+/* Campo de assinatura: linha de assinatura, como num canhoto de entrega */
+.rm-pedidos .rm-chegada-assinatura {
+    border: 0;
+    border-bottom: 2px dashed #9AA8B5;
+    border-radius: 0;
+    padding: 0.6rem 0.2rem;
+    font-size: 1.15rem;
+    font-style: italic;
+    background: transparent;
+}
+
+.rm-pedidos .rm-chegada-assinatura:focus {
+    border-bottom-color: var(--verde);
+    box-shadow: none;
+    background: #F7FAFD;
+}
+
+.rm-pedidos .rm-chegada-assinatura.is-invalid {
+    border-bottom-color: var(--erro);
+}
+
+.rm-pedidos .rm-chegada-dica {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.9rem 0 0;
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+}
+
+.rm-pedidos .rm-chegada-dica i {
+    margin-top: 0.15rem;
+    color: var(--azul);
+}
+
+.rm-pedidos .rm-chegada-rodape {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding: 1.1rem 1.5rem 1.4rem;
+}
+
+.rm-pedidos .rm-chegada-rodape .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ===== Coluna "Assinante" dos pedidos registrados ===== */
+.rm-pedidos .rm-assinante {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 700;
+    color: var(--verde-escuro);
+}
+
+.rm-pedidos .rm-assinante-data {
+    display: block;
+    color: var(--texto-suave);
+    font-size: 0.8rem;
+}
+
+@media (max-width: 575.98px) {
+    .rm-pedidos .rm-chegada-rodape .btn {
+        flex: 1 1 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rm-pedidos .rm-chegada-icone {
+        animation: none;
+    }
+
+    .rm-pedidos .rm-chegada-modal.fade .modal-dialog {
+        transition: none;
+    }
+}
+/* Botão "Confirmar chegada" (subempresa) na coluna Status */
+.rm-pedidos .rm-btn-chegada {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--verde-escuro) 0%, var(--verde) 100%);
+    color: #FFFFFF;
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(31, 107, 88, 0.3);
+}
+
+.rm-pedidos .rm-btn-chegada:hover,
+.rm-pedidos .rm-btn-chegada:focus-visible {
+    color: #FFFFFF;
+    filter: brightness(1.08);
+}
+
+.rm-pedidos td[data-label="Status"] .rm-pedido-status {
+    display: inline-block;
+}
+
+/* o botão fica na linha de baixo da etiqueta de status, do tamanho do próprio texto */
+.rm-pedidos td[data-label="Status"] .rm-btn-chegada {
+    display: flex;
+    width: fit-content;
+}

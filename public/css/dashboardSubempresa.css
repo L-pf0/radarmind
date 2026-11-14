@@ -1,0 +1,396 @@
+/*
+ * Dashboard da Subempresa (visual feito pelo grupo).
+ * Tudo isolado em .rm-sub para não afetar o Bootstrap nem o css/app.css.
+ */
+.rm-sub {
+    --c1: #EEF8F1;
+    --c2: #CDEAD5;
+    --c3: #112E30;
+    --c4: #205A41;
+    --c5: #82AB99;
+    --alerta: #B3261E;
+    --atencao: #B86E00;
+    /* largura e espaçamento vêm das classes container-fluid px-3 px-lg-4 py-4 (iguais às da matriz) */
+    display: grid;
+    gap: 20px;
+    color: var(--c3);
+}
+
+.rm-sub h2,
+.rm-sub h3 {
+    margin: 0;
+}
+
+/* ===== Cabeçalho com o nome da unidade ===== */
+.rm-sub-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0 0 4px;
+    color: var(--c4);
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+/* ===== Botões ===== */
+.rm-sub .acoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+}
+
+.rm-sub .acoes .btn {
+    padding: 14px 16px;
+}
+
+.rm-sub .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--c4);
+    color: #fff;
+    border: 0;
+    border-radius: 10px;
+    padding: 9px 14px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .2s ease, color .2s ease, transform .2s ease;
+}
+
+.rm-sub .btn:hover {
+    background: var(--c5);
+    color: var(--c3);
+    transform: translateY(-1px);
+}
+
+.rm-sub .btn:focus-visible {
+    outline: 2px solid var(--c3);
+    outline-offset: 2px;
+}
+
+.rm-sub .btn.sec {
+    background: var(--c2);
+    color: var(--c3);
+}
+
+.rm-sub .btn:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
+/* ===== Cartões ===== */
+.rm-sub .grade {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.rm-sub .card {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--c2);
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 8px rgba(17, 46, 48, .06);
+}
+
+/* "Ver todos" no título de cada quadro: leva para a página completa */
+.rm-sub .rm-sub-ver {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--c4);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.rm-sub .rm-sub-ver:hover {
+    color: var(--c3);
+    text-decoration: underline;
+}
+
+.rm-sub .acoes .btn {
+    text-decoration: none;
+    text-align: center;
+}
+
+.rm-sub .card h2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--c4);
+}
+
+/* ===== Indicadores ===== */
+.rm-sub .kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px;
+}
+
+.rm-sub .kpi {
+    background: var(--c4);
+    color: #fff;
+    border-radius: 14px;
+    padding: 16px 20px;
+}
+
+.rm-sub .kpi:nth-child(even) {
+    background: var(--c3);
+}
+
+.rm-sub .kpi span {
+    font-size: .85rem;
+    color: var(--c2);
+}
+
+.rm-sub .kpi strong {
+    display: block;
+    font-size: 2rem;
+    margin-top: 4px;
+}
+
+/* ===== Listas ===== */
+.rm-sub .lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.rm-sub .lista li {
+    background: var(--c1);
+    border-left: 5px solid var(--c5);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: .92rem;
+}
+
+.rm-sub .lista li.critico {
+    border-color: var(--alerta);
+}
+
+.rm-sub .lista li.atencao {
+    border-color: var(--atencao);
+}
+
+.rm-sub .lista li.concluido {
+    border-color: #2E9E5B;
+}
+
+.rm-sub .tag.concluido {
+    background: #E4F3EE;
+    color: #1F6B4F;
+}
+
+.rm-sub .tag:empty {
+    display: none;
+}
+
+.rm-sub .vazio {
+    color: var(--c5);
+    font-style: italic;
+}
+
+/* ===== Barras de desempenho ===== */
+.rm-sub .barra {
+    margin-bottom: 14px;
+}
+
+.rm-sub .pontuacao {
+    margin: 0 0 12px;
+}
+
+.rm-sub .pontuacao strong {
+    font-size: 1.6em;
+    margin-right: 4px;
+}
+
+.rm-sub .barra div {
+    height: 22px;
+    border-radius: 6px;
+    background: var(--c4);
+    min-width: 4px;
+    transition: width .4s ease;
+}
+
+.rm-sub .barra.saida div {
+    background: var(--c5);
+}
+
+.rm-sub .barra small {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+/* ===== Tabelas ===== */
+.rm-sub .rolagem {
+    overflow-x: auto;
+}
+
+.rm-sub table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .92rem;
+}
+
+.rm-sub th {
+    text-align: left;
+    background: var(--c2);
+    padding: 8px 10px;
+    white-space: nowrap;
+}
+
+.rm-sub td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--c2);
+}
+
+.rm-sub .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: .8rem;
+    font-weight: 600;
+    background: var(--c2);
+    white-space: nowrap;
+}
+
+.rm-sub .tag.critico {
+    background: #fde4e2;
+    color: var(--alerta);
+}
+
+.rm-sub .tag.atencao {
+    background: #fdefd6;
+    color: var(--atencao);
+}
+
+/* ===== Janelas (dialog) ===== */
+.rm-sub dialog {
+    border: 0;
+    border-radius: 14px;
+    padding: 0;
+    width: min(460px, 92vw);
+    color: var(--c3);
+}
+
+.rm-sub dialog::backdrop {
+    background: rgba(17, 46, 48, .55);
+}
+
+.rm-sub dialog form {
+    padding: 22px;
+    display: grid;
+    gap: 12px;
+}
+
+.rm-sub dialog h3 {
+    color: var(--c4);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.rm-sub label {
+    display: grid;
+    gap: 4px;
+    margin: 0;
+    font-size: .88rem;
+    font-weight: 600;
+}
+
+.rm-sub input,
+.rm-sub select,
+.rm-sub textarea {
+    font: inherit;
+    font-weight: 400;
+    padding: 8px 10px;
+    border: 1px solid var(--c5);
+    border-radius: 8px;
+    background: var(--c1);
+    color: var(--c3);
+}
+
+.rm-sub input:focus,
+.rm-sub select:focus,
+.rm-sub textarea:focus {
+    outline: 2px solid var(--c4);
+    outline-offset: 1px;
+    background: #fff;
+}
+
+.rm-sub .duas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.rm-sub .botoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.rm-sub .erro {
+    margin: 0;
+    color: var(--alerta);
+    font-size: .88rem;
+    min-height: 1em;
+}
+
+/* ===== Aviso flutuante ===== */
+.rm-sub #toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1080;
+    background: var(--c4);
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: .25s;
+    pointer-events: none;
+    max-width: 340px;
+}
+
+.rm-sub #toast.on {
+    opacity: 1;
+    transform: none;
+}
+
+.rm-sub #toast.falha {
+    background: var(--alerta);
+}
+
+@media (max-width: 575.98px) {
+    .rm-sub .duas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rm-sub .btn,
+    .rm-sub .barra div,
+    .rm-sub #toast {
+        transition: none;
+    }
+
+    .rm-sub .btn:hover {
+        transform: none;
+    }
+}
