@@ -13,6 +13,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/PHP-8.4-777BB4?logo=php&logoColor=white" alt="PHP 8.4">
   <img src="https://img.shields.io/badge/Laravel-13-FF2D20?logo=laravel&logoColor=white" alt="Laravel 13">
+  <img src="https://img.shields.io/badge/Vue.js-3-4FC08D?logo=vuedotjs&logoColor=white" alt="Vue.js 3">
   <img src="https://img.shields.io/badge/Python-Flask_(protótipo)-3776AB?logo=python&logoColor=white" alt="Python com Flask no protótipo">
   <img src="https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white" alt="MySQL">
   <img src="https://img.shields.io/badge/testes-Pest-1F8A4C" alt="Testes com Pest">
@@ -60,7 +61,7 @@ O **RadarMind** junta tudo em uma única plataforma:
 | 📊 **Dashboards** | Painel da matriz com o ranking de desempenho das unidades e painel próprio de cada subempresa com os indicadores da unidade. |
 | 📦 **Estoque** | Cadastro de **peças avulsas** e **maquinário** com SKU, localização, lote, número de série, status (Ativo, Em manutenção, Inativo) e giro. Campos obrigatórios sinalizados e validados. |
 | 🔄 **Movimentações** | Entradas e saídas com responsável e histórico. O estoque é atualizado automaticamente. |
-| 🛒 **Pedidos de reposição** | A subempresa solicita, a matriz é avisada e a própria subempresa confirma a chegada. O estoque é somado automaticamente, uma única vez (Em aberto → Atendido / Cancelado). |
+| 🛒 **Pedidos de reposição** | A subempresa solicita, a matriz é avisada e a própria subempresa confirma a chegada. O estoque é somado automaticamente, uma única vez (Em aberto → Atendido / Cancelado). Os pedidos em aberto têm **filtro por unidade** feito em Vue 3. |
 | 🛠️ **Ordens de serviço** | A subempresa abre a O.S. e a matriz autoriza, nega ou marca como **Feita**. As concluídas vão para o quadro **Finalizadas**. |
 | 🔔 **Central de alertas** | Alertas por gravidade (**Crítico**, **Alerta**, **Concluído**) e categoria (Estoque, Pedidos, Maquinário, Manutenção), cada um com o botão da próxima ação. |
 | 💬 **Notificações em tempo real** | Aviso no canto da tela sempre que chega um alerta novo, com link direto para a central. |
@@ -128,7 +129,7 @@ flowchart LR
 
 - **Back-end:** PHP 8.4, Laravel 13 (Eloquent, Observers, Form Requests, API Resources, Middleware)
 - **Banco de dados:** MySQL / MariaDB
-- **Front-end:** Blade, CSS próprio e JavaScript puro (sem build obrigatório)
+- **Front-end:** Blade, CSS próprio e JavaScript puro, com **Vue 3** no filtro por unidade dos pedidos de reposição (via CDN, sem build obrigatório)
 - **Testes:** Pest
 - **Padrão de código:** Laravel Pint
 - **Prototipagem:** Python 3 + Flask, na primeira versão da API do módulo da subempresa
