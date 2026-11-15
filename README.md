@@ -13,6 +13,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/PHP-8.4-777BB4?logo=php&logoColor=white" alt="PHP 8.4">
   <img src="https://img.shields.io/badge/Laravel-13-FF2D20?logo=laravel&logoColor=white" alt="Laravel 13">
+  <img src="https://img.shields.io/badge/Python-Flask_(protótipo)-3776AB?logo=python&logoColor=white" alt="Python com Flask no protótipo">
   <img src="https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white" alt="MySQL">
   <img src="https://img.shields.io/badge/testes-Pest-1F8A4C" alt="Testes com Pest">
   <img src="https://img.shields.io/badge/status-online-2EA44F" alt="Status online">
@@ -31,6 +32,7 @@
 - [Perfis de acesso](#-perfis-de-acesso)
 - [Fluxos principais](#-fluxos-principais)
 - [Tecnologias](#-tecnologias)
+- [Do protótipo em Python ao Laravel](#-do-protótipo-em-python-ao-laravel)
 - [Como rodar localmente](#-como-rodar-localmente)
 - [Contas de demonstração](#-contas-de-demonstração)
 - [Testes](#-testes)
@@ -129,6 +131,29 @@ flowchart LR
 - **Front-end:** Blade, CSS próprio e JavaScript puro (sem build obrigatório)
 - **Testes:** Pest
 - **Padrão de código:** Laravel Pint
+- **Prototipagem:** Python 3 + Flask, na primeira versão da API do módulo da subempresa
+
+## 🐍 Do protótipo em Python ao Laravel
+
+O módulo da subempresa começou como uma **API REST em Python com Flask**. Com ela, a equipe validou as regras de negócio e o formato do JSON antes de levar tudo para o sistema principal:
+- isolamento dos dados por subempresa;
+- validação de quantidades e bloqueio de saída sem saldo;
+- itens em alerta (crítico quando o estoque fica na metade do mínimo ou abaixo);
+- O.S. só para maquinário.
+
+Depois que o contrato da API ficou estável, ela foi migrada para o Laravel. Os mesmos recursos agora usam o banco MySQL, o login e o controle de acesso do sistema. Por isso o painel da subempresa conversa com o back-end PHP pelos mesmos endpoints que usava no protótipo:
+
+| Recurso | Protótipo (Python / Flask) | Versão atual (PHP / Laravel) |
+|---|---|---|
+| Dashboard e indicadores | `GET /api/dashboard` | `GET /subempresa/api/dashboard` |
+| Estoque | `GET /api/estoque` | `GET /subempresa/api/estoque` |
+| Movimentações | `GET /api/movimentacoes` | `GET /subempresa/api/movimentacoes` |
+| Ordens de serviço | `GET /api/os` | `GET /subempresa/api/os` |
+| Pedidos de reposição | `GET /api/reposicoes` | `GET /subempresa/api/reposicoes` |
+
+> O protótipo guardava os dados em memória e simulava a subempresa logada. Na versão Laravel, esses dados vêm do banco e a unidade vem do usuário autenticado.
+
+O código do protótipo está em [`prototipos/api-subempresa-flask`](prototipos/api-subempresa-flask), com as instruções para rodá-lo.
 
 ## 🚀 Como rodar localmente
 
@@ -249,6 +274,8 @@ config/radarmind.php        # Layout e contas criadas pela seed
 database/
 ├── migrations/
 └── seeders/                # Unidades, usuários e estoque de demonstração
+prototipos/
+└── api-subempresa-flask/   # Protótipo da API da subempresa em Python + Flask
 public/                     # CSS, JavaScript e imagens
 resources/views/            # Telas em Blade
 routes/web.php              # Rotas da aplicação
