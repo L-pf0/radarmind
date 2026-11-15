@@ -13,10 +13,10 @@
 <p align="center">
   <img src="https://img.shields.io/badge/PHP-8.4-777BB4?logo=php&logoColor=white" alt="PHP 8.4">
   <img src="https://img.shields.io/badge/Laravel-13-FF2D20?logo=laravel&logoColor=white" alt="Laravel 13">
+  <img src="https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript&logoColor=black" alt="JavaScript ES6">
   <img src="https://img.shields.io/badge/Vue.js-3-4FC08D?logo=vuedotjs&logoColor=white" alt="Vue.js 3">
   <img src="https://img.shields.io/badge/Python-Flask_(protótipo)-3776AB?logo=python&logoColor=white" alt="Python com Flask no protótipo">
   <img src="https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white" alt="MySQL">
-  <img src="https://img.shields.io/badge/testes-Pest-1F8A4C" alt="Testes com Pest">
   <img src="https://img.shields.io/badge/status-online-2EA44F" alt="Status online">
 </p>
 
