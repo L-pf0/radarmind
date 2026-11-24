@@ -189,38 +189,13 @@ php artisan key:generate
 
 > No Windows (PowerShell), use `copy .env.example .env`.
 
-**4. Configure o banco no `.env`**
-
-Crie um banco vazio (por exemplo `radarmind`) e preencha:
-
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=radarmind
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-**5. Defina as senhas das contas de demonstração** (opcional)
-
-```env
-SEED_SENHA_MATRIZ=
-SEED_SENHA_SUB01=
-SEED_SENHA_SUB02=
-SEED_SENHA_SUB03=
-SEED_SENHA_SUB04=
-```
-
-> Se ficarem em branco, a seed gera senhas aleatórias e mostra cada uma no terminal.
-
-**6. Crie as tabelas e os dados iniciais**
+**4. Crie as tabelas e os dados iniciais**
 
 ```bash
 php artisan migrate --seed
 ```
 
-**7. Inicie o servidor**
+**5. Inicie o servidor**
 
 ```bash
 php artisan serve
@@ -306,13 +281,14 @@ O projeto roda em hospedagens PHP comuns, inclusive gratuitas. Resumo:
 
 | Integrante | Responsabilidade |
 |---|---|
-| _Nome do integrante_ | _Ex.: módulo de estoque_ |
-| _Nome do integrante_ | _Ex.: alertas e notificações_ |
-| _Nome do integrante_ | _Ex.: relatórios_ |
-| _Nome do integrante_ | _Ex.: interface e design_ |
+| _Luísa Paes Franzoni_ | _Login / Dashboard Matriz / Módulo de O.S._ |
+| _Ana Júlia Ciriáco Campos_ | _Central de Alertas_ |
+| _Lorena Lodi de Oliveira_ | _Módulo de pedido de reposição de estoque_ |
+| _Luan Verissímo Beltramini_ | _Relatórios / Módulo de Estoque / Módulo de Movimentações_ |
+| _Thávine Gabrielli Nardin_ | _Dashboard Subempresas_ |
 
 ---
 
 <p align="center">
-  Feito com 💚 para tornar a gestão do agronegócio mais simples e eficiente.
+  Feito com 💚🤍💛💙 para tornar a gestão do agronegócio mais simples e eficiente...
 </p>
