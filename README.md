@@ -128,9 +128,8 @@ flowchart LR
 ## 🧰 Tecnologias
 
 - **Back-end:** PHP 8.4, Laravel 13 (Eloquent, Observers, Form Requests, API Resources, Middleware)
-- **Banco de dados:** MySQL / MariaDB
+- **Banco de dados:** MySQL / MySQL Workbench
 - **Front-end:** Blade, CSS próprio e JavaScript puro, com **Vue 3** no filtro por unidade dos pedidos de reposição (via CDN, sem build obrigatório)
-- **Testes:** Pest
 - **Padrão de código:** Laravel Pint
 - **Prototipagem:** Python 3 + Flask, na primeira versão da API do módulo da subempresa
 
