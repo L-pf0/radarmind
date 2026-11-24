@@ -21,7 +21,9 @@
 </p>
 
 <p align="center">
-  <a href="http://radarmindgestaointeligente.infinityfreeapp.com" target="_blank">
+  <a href="http://radarmindgestaointeligente.infinityfreeapp.com" 
+     target="_blank" 
+     rel="noopener noreferrer">
     <strong>🌐 Acessar a demonstração online</strong>
   </a>
 </p>
